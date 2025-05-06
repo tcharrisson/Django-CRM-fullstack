@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Customer{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Add New Customer</h2>
+        <p>Fill in the details below to add a new customer.</p>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Customer Details</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{% url 'add_customer' %}">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Customer Name" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Customer Email" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" name="phone" class="form-control" id="phone" placeholder="Customer Phone">
+            </div>
+            <div class="form-group mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea name="address" class="form-control" id="address" rows="3" placeholder="Customer Address"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Customer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

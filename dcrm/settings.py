@@ -45,7 +45,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # Ensure templates are stored here
+        'DIRS': [BASE_DIR / 'templates'],  # Ensure templates are stored here
         'APP_DIRS': True,  # This is required for Django's built-in templates to work
         'OPTIONS': {
             'context_processors': [

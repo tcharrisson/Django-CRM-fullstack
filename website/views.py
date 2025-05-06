@@ -53,7 +53,7 @@ def add_customer(request):
             return redirect('home')
     else:
         form = CustomerForm()
-    return render(request, 'add_customer.html', {'form': form})
+    return render(request, 'website/add_customer.html', {'form': form})
 
 
 @login_required
@@ -67,7 +67,7 @@ def update_customer(request, pk):
             return redirect('home')
     else:
         form = CustomerForm(instance=customer)
-    return render(request, 'update_customer.html', {'form': form})
+    return render(request, 'website/update_customer.html', {'form': form})
 
 
 @login_required
@@ -77,4 +77,4 @@ def delete_customer(request, pk):
         customer.delete()
         messages.success(request, 'Customer deleted successfully.')
         return redirect('home')
-    return render(request, 'delete_customer.html', {'customer': customer})
+    return render(request, 'website/delete_customer.html', {'customer': customer})
