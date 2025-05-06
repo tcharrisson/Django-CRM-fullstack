@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Customer
+from .forms import CustomerForm
 
-@login_required
+@login_required 
 def home(request):
     query = request.GET.get('q', '')
     customers = Customer.objects.filter(user=request.user)
@@ -42,12 +43,38 @@ def register_user(request):
 
 @login_required
 def add_customer(request):
-    return render(request, 'add_customer.html')  # Placeholder
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            customer = form.save(commit=False)
+            customer.user = request.user
+            customer.save()
+            messages.success(request, 'Customer added successfully.')
+            return redirect('home')
+    else:
+        form = CustomerForm()
+    return render(request, 'add_customer.html', {'form': form})
+
 
 @login_required
 def update_customer(request, pk):
-    return render(request, 'update_customer.html')  # Placeholder
+    customer = Customer.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Customer updated successfully.')
+            return redirect('home')
+    else:
+        form = CustomerForm(instance=customer)
+    return render(request, 'update_customer.html', {'form': form})
+
 
 @login_required
 def delete_customer(request, pk):
-    return render(request, 'delete_customer.html')  # Placeholder
+    customer = Customer.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        customer.delete()
+        messages.success(request, 'Customer deleted successfully.')
+        return redirect('home')
+    return render(request, 'delete_customer.html', {'customer': customer})
