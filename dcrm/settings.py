@@ -40,11 +40,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'dcrm.urls'
 
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / "templates"],  # Ensure templates are stored here
+        'APP_DIRS': True,  # This is required for Django's built-in templates to work
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -55,6 +57,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'dcrm.wsgi.application'
 
@@ -108,9 +112,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# At the bottom of dcrm/settings.py
+LOGIN_URL = '/login/'
